@@ -1,0 +1,8 @@
+__pycache__
+.vscode
+static/
+db.sqlite3
+jquery*.js
+popper*.js
+**/bootstrap
+static/admin

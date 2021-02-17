@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}}
+
+{% block content %}
+
+<h1>{{ stock.symbol }} - {{ stock.name }}</h1>
+<p>Welcome to detail view</p>
+
+<table class="table center">
+    <tbody>
+        <tr>
+            <td>Current Stock Value</td>
+            <td>${{ stock.current_value }}</td>
+            <td><small class="text-muted">Last updated: {{ stock.last_updated }}</small></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}}
+
+{% block content %}
+<h1>Your Stocks</h1>
+
+<table class="table" style="width: auto;">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Platform</th>
+            <th>Current Value</th>
+            <th>Shares Owned</th>
+            <th>Value Owned</th>
+            <th>Purchased at</th>
+            <th> % Change</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for owned in owned_stock %}
+            <tr>
+                <td class="table-stock-symbol"><a href="{% url 'stock-detail' owned.stock.slug %}">{{ owned.stock.symbol }}</a></td>
+                <td class="table-stock-name">{{ owned.stock.name }}</td>
+                <td class="table-stock-platform">{{ owned.platform }}</td>
+                <td class="table-stock-value">${{ owned.stock.current_value|floatformat:2 }}</td>
+                <td class="table-stock-owned">{{ owned.shares_owned }}</td>
+                <td class="table-stock-value-owned">${{ owned.owned_value|floatformat:2 }}</td>
+                <td class="table-stock-value-purchased">${{ owned.value_purchased_at|floatformat:2 }}</td>
+                {% if owned.value_change < 0 %}
+                    <td class="table-stock-value-purchased negative-value">{{ owned.value_change|floatformat:2 }}%</td>
+                {% else %}
+                    <td class="table-stock-value-purchased positive-value">{{ owned.value_change|floatformat:2 }}%</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>TOTAL:</td>
+            <td>${{ total_current.total|floatformat:2 }}</td>
+            <td>${{ total_purchased.total|floatformat:2 }}</td>
+            {% if total_change < 0 %}
+                <td class="negative-value">{{ total_change|floatformat:2 }}%</td>
+            {% else %}
+                <td class="positive-value">{{ total_change|floatformat:2 }}%</td>
+            {% endif %}
+        </tr>
+    </tbody>
+</table>
+
+<p>Total portfolio: ${{ total.total|floatformat:2 }}</p>
+{% endblock content %}
